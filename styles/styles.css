@@ -78,10 +78,13 @@ body {
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
   line-height: 1.6;
+  position: relative;
 }
 
 body.appear {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 header {
@@ -96,6 +99,13 @@ footer .footer {
 header .header[data-block-status="loaded"],
 footer .footer[data-block-status="loaded"] {
   visibility: visible;
+}
+
+.header-wrapper {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
 }
 
 h1,
