@@ -1,16 +1,12 @@
 import { camelCase } from '../../helpers/camelCase.js';
-import { createOptimizedPicture } from '../../scripts/aem.js';
 
 export default function decorate(block) {
     block.id = 'contact-form'
     const container = document.getElementById('contact-form')
-    console.log('*** container ', container)
-
     const form = document.createElement('form');
     form.method = 'POST';
     form.action = '/'; // TODO: submission url
     form.id = 'contact-form';
-    console.log('*** form ', form);
 
     [...container.children].forEach((element, index) => {
         const div = element
@@ -26,7 +22,6 @@ export default function decorate(block) {
                 form.append(div)
                 break;
                 default: 
-                console.log('*** default div ', div)
                 const container = div.firstElementChild
                 const fragment = container.querySelector('p')
 
@@ -39,11 +34,11 @@ export default function decorate(block) {
                     input.name = value
                     input.placeholder = value
                     input.required = true
-                    
-                    form.append(fragment, input)
 
                     // check for a 2nd column on the same block
                     const secondFragment = div.children[1]?.querySelector('p')
+                    const multipleFragmentDiv = document.createElement('div');
+                    multipleFragmentDiv.className = 'twoColumn'
 
                     if (secondFragment) {
                         const secondValue = secondFragment.textContent.trim()
@@ -54,10 +49,13 @@ export default function decorate(block) {
                         secondInput.name = secondValue
                         secondInput.placeholder = secondValue
                         secondInput.required = true
-                        form.append(secondFragment, secondInput)
+
+                        multipleFragmentDiv.append(fragment, input, secondFragment, secondInput)
+                        form.append(multipleFragmentDiv)
+                        return
                     }
 
-                    console.log('*** form ', form)
+                    form.append(fragment, input)
                 }
 
                 break;
