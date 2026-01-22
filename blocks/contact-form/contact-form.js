@@ -24,6 +24,12 @@ export default function decorate(block) {
                 default: 
                 const container = div.firstElementChild
                 const fragment = container.querySelector('p')
+                const headings = container.querySelectorAll('h1, h2, h3, h4, h5, h6')
+
+                if (headings.length) {
+                    headings.forEach(heading => form.append(heading))
+                    return
+                }
 
                 if (fragment) {
                     const value = fragment.textContent.trim()
