@@ -4,6 +4,8 @@
 }
 
 .input {
+    display: block;
+    box-sizing: border-box;
     width: 100%;
     padding: 0.5rem;
     border: 1px solid #ccc;
@@ -27,7 +29,7 @@
     background-color: #ff8e2f;
     transition: background-color 0.5s ease;
     font-size: 20px;
-        border: 1px solid #ff8e2f;
+    border: 1px solid #ff8e2f;
 }
 
 .submit:hover {
@@ -35,4 +37,13 @@
     color: black;
     border: 1px solid black;
 
+}
+
+.select {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }

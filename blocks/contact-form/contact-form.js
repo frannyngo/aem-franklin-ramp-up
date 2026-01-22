@@ -15,15 +15,18 @@ export default function decorate(block) {
 
         if (div) {
             switch (index) {
-                case 0:  // header
+                // header
+                case 0:  
                 div.className = 'header'
                 form.append(div)
                 break;
-                case 1: //subHeader 
+                //subHeader 
+                case 1: 
                 div.className = 'subHeader'
                 form.append(div)
                 break;
-                case lastElement: // button
+                // button
+                case lastElement: 
                 const buttonValue = div.firstElementChild.querySelector('p')?.textContent.trim()
                 const buttonContainer = document.createElement('div');
                 buttonContainer.className = 'buttonContainer'
@@ -41,7 +44,7 @@ export default function decorate(block) {
                 const fragment = container.querySelector('p')
                 const dropdown = container.querySelector('ul')
 
-
+                // selector
                 if (dropdown) {
                     const select = document.createElement('select');
                     const options = dropdown.querySelectorAll('li')
@@ -70,7 +73,8 @@ export default function decorate(block) {
                     form.append(fragment, select)
                     return
                 }
-
+                
+                // headers
                 const headings = container.querySelectorAll('h1, h2, h3, h4, h5, h6')
 
                 if (headings.length) {
@@ -78,6 +82,7 @@ export default function decorate(block) {
                     return
                 }
 
+                // others
                 if (fragment) {
                     const value = fragment.textContent.trim()
                     // turn into camelCase
