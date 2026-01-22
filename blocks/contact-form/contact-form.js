@@ -7,10 +7,10 @@ export default function decorate(block) {
     form.method = 'POST';
     form.action = '/'; // TODO: submission url
     form.id = 'contact-form';
+    const lastElement = container.children.length - 1;
 
     [...container.children].forEach((element, index) => {
         const div = element
-
         if (div) {
             switch (index) {
                 case 0:  // header
@@ -20,6 +20,16 @@ export default function decorate(block) {
                 case 1: //subHeader 
                 div.className = 'subHeader'
                 form.append(div)
+                break;
+                case lastElement: // button
+                const buttonValue = div.firstElementChild.querySelector('p')?.textContent.trim()
+                const button = document.createElement('button');
+                button.type = 'button'
+                button.textContent = buttonValue
+                button.className = 'submitButton'
+                button.id = 'submit'
+
+                form.append(button)
                 break;
                 default: 
                 const container = div.firstElementChild
@@ -67,8 +77,9 @@ export default function decorate(block) {
                 break;
             }
        
-
         }
 });
+            console.log('*** form ', form)
+
   block.replaceChildren(form);
 }
