@@ -9,17 +9,17 @@ export default function decorate(block) {
     form.action = '/'; // TODO: submission url
     form.id = 'contact-form';
     const lastElement = container.children.length - 1;
+    const textAreaIndex = container.children.length - 2;
 
     [...container.children].forEach((element, index) => {
         const div = element
+        const firstChild = div.firstElementChild
+        const pTag = firstChild.querySelector('p')
+        const pTagLabel = pTag?.textContent.trim()
 
         if (div) {
+            // TODO: swap this with a type? ie: h/textarea/select/button/etc
             switch (index) {
-                // header
-                case 0:  
-                div.className = 'header'
-                form.append(div)
-                break;
                 //subHeader 
                 case 1: 
                 div.className = 'subHeader'
@@ -27,30 +27,38 @@ export default function decorate(block) {
                 break;
                 // button
                 case lastElement: 
-                const buttonValue = div.firstElementChild.querySelector('p')?.textContent.trim()
                 const buttonContainer = document.createElement('div');
                 buttonContainer.className = 'buttonContainer'
 
                 const button = document.createElement('button');
                 button.type = 'button'
-                button.textContent = buttonValue
+                button.textContent = pTagLabel
                 button.className = 'submit'
                 button.id = 'submit'
                 buttonContainer.append(button)
                 form.append(buttonContainer)
                 break;
+                // textarea
+                case textAreaIndex:
+                    const textarea = document.createElement('textarea');                    
+                    textarea.id = pTagLabel;
+                    textarea.name = pTagLabel
+                    textarea.placeholder = pTagLabel
+                    textarea.rows = 5
+                    textarea.cols = 60
+                    textarea.className = 'textarea'
+                    form.append(pTag, textarea)
+                    break;
                 default: 
-                const container = div.firstElementChild
-                const fragment = container.querySelector('p')
-                const dropdown = container.querySelector('ul')
+                const dropdown = firstChild.querySelector('ul')
 
                 // selector
                 if (dropdown) {
                     const select = document.createElement('select');
                     const options = dropdown.querySelectorAll('li')
 
-                    select.id = fragment.textContent.trim()
-                    select.name = fragment.textContent.trim()
+                    select.id = pTag.textContent.trim()
+                    select.name = pTag.textContent.trim()
                     select.required = true
                     select.className = 'select'
 
@@ -70,12 +78,12 @@ export default function decorate(block) {
                         select.appendChild(option);
                     });
 
-                    form.append(fragment, select)
+                    form.append(pTag, select)
                     return
                 }
                 
                 // headers
-                const headings = container.querySelectorAll('h1, h2, h3, h4, h5, h6')
+                const headings = firstChild.querySelectorAll('h1, h2, h3, h4, h5, h6')
 
                 if (headings.length) {
                     headings.forEach(heading => form.append(heading))
@@ -83,12 +91,11 @@ export default function decorate(block) {
                 }
 
                 // others
-                if (fragment) {
-                    const value = fragment.textContent.trim()
+                if (pTag) {
                     // turn into camelCase
-                    fragment.className = camelCase(value)
+                    pTag.className = camelCase(pTagLabel)
 
-                    const input = createInput({ value, placeholder: value, isRequired: true })
+                    const input = createInput({ value: pTagLabel, placeholder: pTagLabel, isRequired: true })
 
                     // check for a 2nd column on the same block
                     const secondFragment = div.children[1]?.querySelector('p')
@@ -102,7 +109,7 @@ export default function decorate(block) {
 
                         const firstContainer = document.createElement('div')
                         const secondContainer = document.createElement('div')
-                        firstContainer.append(fragment, input)
+                        firstContainer.append(pTag, input)
                         secondContainer.append( secondFragment, secondInput)
 
                         multipleFragmentDiv.append(firstContainer, secondContainer)
@@ -110,7 +117,7 @@ export default function decorate(block) {
                         return
                     }
 
-                    form.append(fragment, input)
+                    form.append(pTag, input)
                 }
 
                 break;
@@ -118,6 +125,6 @@ export default function decorate(block) {
        
         }
     });
-    console.log('*** form ', form )
-  block.replaceChildren(form);
+
+    block.replaceChildren(form);
 }
