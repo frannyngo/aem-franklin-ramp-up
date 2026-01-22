@@ -1,27 +1,38 @@
-.cards>ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-    gap: 24px;
+.twoColumn {
+    display: flex;
+    justify-content: space-between;
 }
 
-.cards>ul>li {
-    border: 1px solid #dadada;
-    background-color: var(--background-color);
-}
-
-.cards .cards-card-body {
-    margin: 16px;
-}
-
-.cards .cards-card-image {
-    line-height: 0;
-}
-
-.cards>ul>li img {
+.input {
     width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input::placeholder {
+    color: #b3b3b3;
+}
+
+.buttonContainer {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit {
+    border-radius: 5px;
+    width: 70%;
+    background-color: #ff8e2f;
+    transition: background-color 0.5s ease;
+    font-size: 20px;
+        border: 1px solid #ff8e2f;
+}
+
+.submit:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+
 }

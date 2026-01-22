@@ -1,4 +1,5 @@
 import { camelCase } from '../../helpers/camelCase.js';
+import { createInput } from '../../helpers/createInput.js';
 
 export default function decorate(block) {
     block.id = 'contact-form'
@@ -23,13 +24,16 @@ export default function decorate(block) {
                 break;
                 case lastElement: // button
                 const buttonValue = div.firstElementChild.querySelector('p')?.textContent.trim()
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = 'buttonContainer'
+
                 const button = document.createElement('button');
                 button.type = 'button'
                 button.textContent = buttonValue
-                button.className = 'submitButton'
+                button.className = 'submit'
                 button.id = 'submit'
-
-                form.append(button)
+                buttonContainer.append(button)
+                form.append(buttonContainer)
                 break;
                 default: 
                 const container = div.firstElementChild
@@ -45,11 +49,8 @@ export default function decorate(block) {
                     const value = fragment.textContent.trim()
                     // turn into camelCase
                     fragment.className = camelCase(value)
-                    const input = document.createElement('input')
-                    input.type = 'text'
-                    input.name = value
-                    input.placeholder = value
-                    input.required = true
+
+                    const input = createInput({ value, placeholder: value, isRequired: true })
 
                     // check for a 2nd column on the same block
                     const secondFragment = div.children[1]?.querySelector('p')
@@ -59,14 +60,14 @@ export default function decorate(block) {
                     if (secondFragment) {
                         const secondValue = secondFragment.textContent.trim()
                         secondFragment.className = camelCase(secondValue)
-                        const secondInput = document.createElement('input')
+                        const secondInput = createInput({ value: secondValue, placeholder: secondValue, isRequired: true })
 
-                        secondInput.type = 'text'
-                        secondInput.name = secondValue
-                        secondInput.placeholder = secondValue
-                        secondInput.required = true
+                        const firstContainer = document.createElement('div')
+                        const secondContainer = document.createElement('div')
+                        firstContainer.append(fragment, input)
+                        secondContainer.append( secondFragment, secondInput)
 
-                        multipleFragmentDiv.append(fragment, input, secondFragment, secondInput)
+                        multipleFragmentDiv.append(firstContainer, secondContainer)
                         form.append(multipleFragmentDiv)
                         return
                     }
@@ -78,8 +79,7 @@ export default function decorate(block) {
             }
        
         }
-});
-            console.log('*** form ', form)
-
+    });
+    console.log('*** form ', form )
   block.replaceChildren(form);
 }
