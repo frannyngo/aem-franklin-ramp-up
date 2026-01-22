@@ -12,6 +12,7 @@ export default function decorate(block) {
 
     [...container.children].forEach((element, index) => {
         const div = element
+
         if (div) {
             switch (index) {
                 case 0:  // header
@@ -38,6 +39,38 @@ export default function decorate(block) {
                 default: 
                 const container = div.firstElementChild
                 const fragment = container.querySelector('p')
+                const dropdown = container.querySelector('ul')
+
+
+                if (dropdown) {
+                    const select = document.createElement('select');
+                    const options = dropdown.querySelectorAll('li')
+
+                    select.id = fragment.textContent.trim()
+                    select.name = fragment.textContent.trim()
+                    select.required = true
+                    select.className = 'select'
+
+                    const placeholder = document.createElement('option');
+                    placeholder.value = 'Select Area of Interest'
+                    placeholder.textContent = 'Select Area of Interest'
+                    placeholder.disabled = true
+                    placeholder.selected = true
+                    placeholder.className = 'selectPlaceholder'
+                    select.append(placeholder)
+
+                    options.forEach(li => {
+                        const option = document.createElement('option');
+                        option.value = li.textContent.trim().toLowerCase();
+                        option.textContent = li.textContent.trim();
+                        option.cl
+                        select.appendChild(option);
+                    });
+
+                    form.append(fragment, select)
+                    return
+                }
+
                 const headings = container.querySelectorAll('h1, h2, h3, h4, h5, h6')
 
                 if (headings.length) {
