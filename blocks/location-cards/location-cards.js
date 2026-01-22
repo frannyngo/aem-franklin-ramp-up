@@ -1,17 +1,49 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
-
 export default function decorate(block) {
-  /* change to ul, li */
-  const ul = document.createElement('ul');
-  [...block.children].forEach((row) => {
-    const li = document.createElement('li');
-    while (row.firstElementChild) li.append(row.firstElementChild);
-    [...li.children].forEach((div) => {
-      if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image';
-      else div.className = 'cards-card-body';
-    });
-    ul.append(li);
+  block.id = 'contact-card'
+
+  const container = document.getElementById('contact-card')
+  const grid = document.createElement('div')
+  grid.id = 'grid-container'
+  grid.className = 'grid';
+  
+    [...container.children].forEach(element => {
+      const gridItem = document.createElement('div')
+      const imageContainer = document.createElement('div')
+      const detailsContainer = document.createElement('div')
+
+      imageContainer.className = 'imageContainer'
+      detailsContainer.className = 'detailsContainer'
+
+      const photo = element.firstElementChild
+      const details = element.children[1];    
+
+      [...photo.children].forEach(img => {
+        const image = img.querySelector('img')
+        image.className = photo.children.length > 1? 'multipleImages' : 'singleImage'
+        imageContainer.append(image)
+      });
+
+      [...details.children].forEach(text => {
+        const header = text.querySelector('strong');
+        const phone = text.querySelector('a');
+
+        if (!text.children.length) {
+          // just a regular <p> 
+          text.className = 'info'
+          detailsContainer.append(text)
+        } else if (header) {
+          header.className = 'header'
+          detailsContainer.append(header) 
+        } else if (phone) {
+          phone.className = 'phone'
+          detailsContainer.append(phone)
+        }
+      })
+
+      gridItem.append(imageContainer, detailsContainer)
+      grid.append(gridItem)
   });
-  ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
-  block.replaceChildren(ul);
+
+
+  block.replaceChildren(grid)
 }
