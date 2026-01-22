@@ -1,3 +1,4 @@
+import { camelCase } from '../../helpers/camelCase.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 export default function decorate(block) {
@@ -18,9 +19,11 @@ export default function decorate(block) {
             switch (index) {
                 case 0:  // header
                 div.className = 'header'
+                form.append(div)
                 break;
                 case 1: //subHeader 
                 div.className = 'subHeader'
+                form.append(div)
                 break;
                 default: 
                 console.log('*** default div ', div)
@@ -30,39 +33,28 @@ export default function decorate(block) {
                 if (fragment) {
                     const value = fragment.textContent.trim()
                     // turn into camelCase
-                    const camelCase = value.toLowerCase()
-                        .replace(/[^a-z0-9\s]/g, '') 
-                        .trim()
-                        .split(/\s+/)
-                        .map((word, index) =>
-                        index === 0
-                            ? word
-                            : word.charAt(0).toUpperCase() + word.slice(1)
-                        )
-                        .join('');
+                    fragment.className = camelCase(value)
+                    const input = document.createElement('input')
+                    input.type = 'text'
+                    input.name = value
+                    input.placeholder = value
+                    input.required = true
+                    
+                    form.append(fragment, input)
 
-                        fragment.className = camelCase
-                        const input = document.createElement('input')
-                        input.type = 'text'
-                        input.name = value
-                        input.placeholder = value
-                        input.required = true
-
-                        container.append(input)
-                        // form.append(input)
-                    // const secondFragment = div.children[1]
-                    // const secondFragment = secondFragment.querySelector('p')
                     // check for a 2nd column on the same block
-                    // const hasSecondChild = secondFragment.hasChildNodes()
-                    // console.log('*** secondFragment ', secondFragment)
-                    // console.log('*** hasSecondChild ', hasSecondChild)
-                    // console.log('*** secondFragment ', secondFragment)
+                    const secondFragment = div.children[1]?.secondFragment.querySelector('p')
+                    const hasSecondChild = secondFragment.hasChildNodes()
+
+                    // if (hasSecondChild) {
+
+                    // }
                 console.log('*** input ', input)
 
                 console.log('*** fragment ', fragment)
                 console.log('*** value ', value)
                 console.log('*** firstFrag ', container)
-
+                console.log('*** form ', form)
                 }
 
                 break;
@@ -71,5 +63,5 @@ export default function decorate(block) {
 
         }
 });
-//   block.replaceChildren(ul);
+  block.replaceChildren(form);
 }
