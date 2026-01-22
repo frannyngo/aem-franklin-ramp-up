@@ -43,18 +43,21 @@ export default function decorate(block) {
                     form.append(fragment, input)
 
                     // check for a 2nd column on the same block
-                    const secondFragment = div.children[1]?.secondFragment.querySelector('p')
-                    const hasSecondChild = secondFragment.hasChildNodes()
+                    const secondFragment = div.children[1]?.querySelector('p')
 
-                    // if (hasSecondChild) {
+                    if (secondFragment) {
+                        const secondValue = secondFragment.textContent.trim()
+                        secondFragment.className = camelCase(secondValue)
+                        const secondInput = document.createElement('input')
 
-                    // }
-                console.log('*** input ', input)
+                        secondInput.type = 'text'
+                        secondInput.name = secondValue
+                        secondInput.placeholder = secondValue
+                        secondInput.required = true
+                        form.append(secondFragment, secondInput)
+                    }
 
-                console.log('*** fragment ', fragment)
-                console.log('*** value ', value)
-                console.log('*** firstFrag ', container)
-                console.log('*** form ', form)
+                    console.log('*** form ', form)
                 }
 
                 break;
