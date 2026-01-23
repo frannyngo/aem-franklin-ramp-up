@@ -8,6 +8,8 @@ export default function decorate(block) {
     form.method = 'POST';
     form.action = '/'; // TODO: submission url
     form.id = 'contact-form';
+    form.className = 'form'
+    
     const lastElement = container.children.length - 1;
     const textAreaIndex = container.children.length - 2;
 

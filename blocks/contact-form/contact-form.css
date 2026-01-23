@@ -1,3 +1,9 @@
+@media (width >= 900px) {
+    .form {
+        width: 100%;
+    }
+}
+
 .twoColumn {
     display: flex;
     justify-content: space-between;

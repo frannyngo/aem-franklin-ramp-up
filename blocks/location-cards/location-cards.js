@@ -17,9 +17,10 @@ export default function decorate(block) {
       const photo = element.firstElementChild
       const details = element.children[1];    
 
-      [...photo.children].forEach(img => {
-        const image = img.querySelector('img')
-        image.className = photo.children.length > 1? 'multipleImages' : 'singleImage'
+      [...photo.children].forEach((img, index)  => {
+        const image = img.querySelector('img');
+        // if there is 2 images, assign different classNames
+        image.className = photo.children.length > 1? index === 0 ? 'firstImage'  : 'secondImage' : 'singleImage'
         imageContainer.append(image)
       });
 

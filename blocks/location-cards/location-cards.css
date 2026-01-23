@@ -1,9 +1,63 @@
-.multipleImages {
-  height: 100px;
-  width: 100px;
+.grid {
+  display: grid;
+  box-sizing: border-box;
+  width: 1000px;
+  grid-template-columns: 1fr 1fr;
+}
+
+ @media (width < 1100px) {
+  .grid {
+    width: 800px;
+  }
+ }
+
+@media (width < 900px) {
+  .grid {
+    width: 100%
+  }
+}
+
+
+.imageContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.detailsContainer {
+  padding-top: 1rem;
+  padding-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.detailsContainer a {
+  color: black;
+  font-size: 14px;
+}
+
+.firstImage, .secondImage, .singleImage {
+  border-radius: 10px;
+  height: 425px;
+}
+
+.firstImage {
+  width: 283px;
+}
+
+.secondImage {
+  width: 155px;
 }
 
 .singleImage {
-  height: 100px;
-  width: 100px;
+  width: 100%;
+}
+
+.info {
+  line-height: 0.35rem;
+  font-size: 14px;
+}
+
+.header {
+  font-size: 18px;
+  line-height: 40px;
 }
