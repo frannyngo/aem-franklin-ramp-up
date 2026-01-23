@@ -50,7 +50,7 @@
   line-height: 40px;
 }
 
-@media (width <=900px) {
+@media (width <= 900px) {
   .grid {
     width: 100%
   }
@@ -68,5 +68,21 @@
   .singleImage {
     width: 384px;
     height: 585px;
+  }
+}
+
+@media (width <= 620px) {
+  .grid {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .secondImage {
+    display: none;
+  }
+
+  .firstImage, .singleImage {
+    height: 480px;
+    width: 480px;
   }
 }
