@@ -269,7 +269,11 @@ main > .section:first-of-type {
 /* section metadata */
 main .section.light,
 main .section.highlight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
+  width: 100vw;
 }

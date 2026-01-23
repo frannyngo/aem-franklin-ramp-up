@@ -1,0 +1,37 @@
+.contactUsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10rem;
+}
+
+@media (width <= 765px) {
+    .contactUsContainer {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.contactUsInformationContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem 0;
+}
+
+.contactUsName, .contactUsTitle, .contactUsEmail {
+    line-height: 10px;
+}
+
+.contactUsName {
+    font-size: 18px;
+}
+
+.contactUsTitle {
+    color: grey;
+    font-size: 14px;
+}
+
+.contactUsEmail {
+    font-size: 14px;
+}
