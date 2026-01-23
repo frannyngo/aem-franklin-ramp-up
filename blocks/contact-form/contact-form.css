@@ -1,0 +1,61 @@
+@media (width >= 900px) {
+    .form {
+        width: 100%;
+    }
+}
+
+.twoColumn {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input::placeholder {
+    color: #b3b3b3 !important;
+}
+
+.buttonContainer {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit {
+    border-radius: 5px;
+    width: 70%;
+    background-color: #ff8e2f;
+    transition: background-color 0.5s ease;
+    font-size: 20px;
+    border: 1px solid #ff8e2f;
+}
+
+.submit:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+
+}
+
+.select {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
