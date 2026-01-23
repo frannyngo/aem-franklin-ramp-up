@@ -1,26 +1,14 @@
 .grid {
   display: grid;
   box-sizing: border-box;
-  width: 1000px;
+  width: 920px;
   grid-template-columns: 1fr 1fr;
+  column-gap: 1.5rem;
 }
-
- @media (width < 1100px) {
-  .grid {
-    width: 800px;
-  }
- }
-
-@media (width < 900px) {
-  .grid {
-    width: 100%
-  }
-}
-
 
 .imageContainer {
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
 }
 
 .detailsContainer {
@@ -60,4 +48,25 @@
 .header {
   font-size: 18px;
   line-height: 40px;
+}
+
+@media (width <=900px) {
+  .grid {
+    width: 100%
+  }
+
+  .imageContainer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .firstImage, .secondImage {
+    width: 384px;
+    height: 287px;
+  }
+
+  .singleImage {
+    width: 384px;
+    height: 585px;
+  }
 }
